@@ -5,7 +5,6 @@ import './modal.css'
 import Tag from './components/Tag'
 import Card from './components/Card'
 import { ModalBackdrop, Modal } from './components/Modal'
-
 import { projects } from './data/projectData'
 import githubIcon from './assets/images/socials/GitHub.png'
 import gmailIcon from './assets/images/socials/Gmail.png'

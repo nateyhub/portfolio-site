@@ -4,7 +4,7 @@ export default function Tag({ text, iconSrc, type }) {
         : null
 
     return (
-        <div className={`skill-tag ${type}`}>
+        <div className={`skill-tag${type ? ` ${type}` : ``}`}>
             {resolvedIcon && <img src={resolvedIcon} />}
             <span>{text}</span>
         </div>

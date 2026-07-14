@@ -1,24 +1,23 @@
 import Tag from "./Tag"
 
-export default function Card({ tags, imgSrc, projectName, projectSummary, projectDesc, handleClick }) {
-    console.log(tags)
+export default function Card({ tags, project, handleClick }) {
     const tagItems = tags ? tags.map((tag) => {
         return (
-            <Tag text={tag.text} iconSrc={tag.imgSrc} />
+            <Tag key={tag.text} text={tag.text} iconSrc={tag.imgSrc} />
         )
     }) : "";
     return (
-        <div className="card" onClick={() => handleClick(projectName)}>
+        <div className="card" onClick={() => handleClick(project)}>
             <div className="img-holder">
-                <img src={imgSrc} />
+                <img src={project.thumbnail} />
             </div>
             <div className="details">
                 <div className="skills-wrapper">
                     {tagItems}
                 </div>
                 <div>
-                    <h1>{projectName}</h1>
-                    <p>{projectSummary}</p>
+                    <h1>{project.name}</h1>
+                    <p>{project.summary}</p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,8 @@
 import Tag from "./Tag"
-
+import ReactPlayer from 'react-player'
+import mindmateVid from '../assets/videos/mindmate.mp4'
+import closeSymbol from "../assets/images/symbols/close_button.svg"
+import { useEffect, useState } from "react"
 
 export function ModalBackdrop({ handleClose }) {
     return (
@@ -11,37 +14,116 @@ export function ModalBackdrop({ handleClose }) {
     )
 }
 
-export function Modal({ handleClose }) {
+export function Modal({ project, handleClose }) {
+    const [fullscreenImage, setFullscreenImage] = useState(false)
+    const [selectedMedia, setSelectedMedia] = useState(0)
+
+    if (project.media) {
+        project.media.forEach((media) => {
+            console.log(media.type)
+            console.log(media.src)
+        })
+    }
+
+    const handleCloseFullscreen = () => {
+        setFullscreenImage(false)
+    }
+
+    const handleFullscreen = (fs) => {
+        setFullscreenImage(fs)
+    }
+
+
+    // handleMediaSelection(2)
+
     return (
-        <div className="modal">
-            <div className="modal-content">
-                <button onClick={() => handleClose()}>X</button>
-                <div className="modal-gallery">
-                    <iframe src="https://www.youtube.com/embed/aOiqcToGf5k?si=AiJSn2D98cYzBoxo"
-                        title="YouTube video player"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        frameBorder="none"
-                        allowFullScreen>
-                    </iframe>
-                    <div className="gallery-items">
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
-                        <img src={'https://www.nzherald.co.nz/resizer/v2/LP3WYLE76VDNBGRR5X325HVJOM.jpg?auth=b6698cc184563214cf1a39ae5ffe32c3125f4cb879f6c166e6226bb36a269d11&width=576&height=613&quality=70&focal=539%2C242&smart=false'} alt="" />
+        <>
+            {
+                fullscreenImage &&
+                <div className="fullscreen">
+                    <button onClick={handleCloseFullscreen}>
+                        <img src={closeSymbol} />
+                    </button>
+                    <img
+                        src={project.media[selectedMedia].src}
+                    />
+                </div>
+
+            }
+            <div className="modal">
+                <div className="modal-content">
+                    <button onClick={() => handleClose()}>X</button>
+                    <div className="modal-gallery">
+                        <Gallery media={project.media} selectedMedia={selectedMedia} setSelectedMedia={setSelectedMedia} handleFullScreen={handleFullscreen} />
+                    </div>
+                    <div className="project-info">
+                        <h1>{project.name}</h1>
+                        <div className="skills-wrapper">
+                            {
+                                project.tags.map((t) => {
+                                    return (<Tag key={t.text} text={t.text} iconSrc={t.imgSrc} />)
+                                })
+                            }
+                            {/* <Tag text={"Android Studio"} /> */}
+                        </div>
+
+                        <div className="paragraphs" dangerouslySetInnerHTML={{ __html: project.desc }}></div>
+
+
                     </div>
                 </div>
-                <div className="project-info">
-                    <h1>Modal heading</h1>
-                    <div className="skills-wrapper">
-                        <Tag text={"Android Studio"} />
-                    </div>
-                    <p>Hello this is some information</p>
-                </div>
-            </div>
-        </div>
+            </div >
+        </>
     )
+}
+
+function Gallery({ media, handleFullScreen, selectedMedia, setSelectedMedia }) {
+
+
+    // const [fullscreenImage, setFullscreenImage] = useState(handleFullScreen)
+
+    const handleMediaSelection = (selection) => {
+        setSelectedMedia((prev) => prev = selection)
+    }
+
+    const handleClickImage = () => {
+        handleFullScreen(true)
+    }
+
+    useEffect(() => {
+        console.log("SELECTION", selectedMedia)
+        console.log("MEDIA", media[selectedMedia])
+    }, [selectedMedia])
+
+    let i = -1;
+    const galleryItems = media.map((m) => {
+        i++;
+        return <GalleryItem m={m} key={i} index={i} handleClick={handleMediaSelection} isSelected={i === selectedMedia} />
+    })
+
+    return (
+        <>
+            {
+                media[selectedMedia] && (
+                    media[selectedMedia].type == 'video' ?
+                        <ReactPlayer src={media[selectedMedia].src} controls={true} />
+                        :
+                        <img className="media-img" src={media[selectedMedia].src}
+                            onClick={handleClickImage} />
+                )
+            }
+            <div className="gallery-items">
+                {galleryItems}
+            </div>
+        </>
+    )
+}
+
+function GalleryItem({ m, index, handleClick, isSelected }) {
+    console.log(m.src, m.thumb, isSelected)
+    return <img src={m.type === 'image' ? m.src : m.thumb} onClick={() => handleClick(index)} className={isSelected ? "selected" : ""} />
+}
+
+function fullscreenImage({ img }) {
+
 }

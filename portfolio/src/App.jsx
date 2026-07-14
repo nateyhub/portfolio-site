@@ -10,6 +10,7 @@ import githubIcon from './assets/images/socials/GitHub.png'
 import gmailIcon from './assets/images/socials/Gmail.png'
 import linkedInIcon from './assets/images/socials/LinkedIn.png'
 import resumeIcon from './assets/images/socials/Resume.png'
+import logo from './assets/images/logo.svg'
 
 function App() {
   const [focusedElement, setFocusedElement] = useState(null)
@@ -23,13 +24,18 @@ function App() {
   const handleCloseModal = (a) => {
     console.log("Closing")
     setModalVisible(false)
+    setSelectedProject(null)
   }
 
   const handleChooseProject = (p) => {
     console.log("Choosing", p)
-    setModalVisible(true)
     setSelectedProject(p)
   }
+
+  useEffect(() => {
+    console.log("Selected project", selectedProject)
+    if (selectedProject) setModalVisible(true)
+  }, [selectedProject])
 
   const handleEmailMessage = (e) => {
     e.preventDefault();
@@ -58,8 +64,6 @@ function App() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           let sec = entry.target.getAttribute('data-section')
-          console.log("Element is visible", sec)
-          // console.log(document.querySelector(`#${entry.target.id}_link`))
           document.querySelector(`#${sec}_link`).classList.add('visible')
         } else {
           let sec = entry.target.getAttribute('data-section')
@@ -87,9 +91,10 @@ function App() {
   return (
     <>
       {modalVisible && <ModalBackdrop handleClose={handleCloseModal} />}
-      {modalVisible && <Modal handleClose={handleCloseModal} />}
+      {modalVisible && <Modal project={selectedProject} handleClose={handleCloseModal} />}
 
       <nav>
+        <img src={logo} className='logo' />
         <h1 className='main-heading'>Nathan Sellar</h1>
         <h2>Developer</h2>
         <div className="socials-wrapper">
@@ -135,7 +140,10 @@ function App() {
                   I believe that the best solutions come from sharing ideas, working together, and building strong relationships with my peers .
                 </p>
                 <p>
-                  When I'm not coding, I enjoy staying physically active through soccer, tennis, hiking, and the gym; and watch content exploring new developments in web design.
+                  When I'm not coding, I enjoy staying physically active through soccer, tennis, hiking, and the gym; and watch content exploring new developments in web development.
+                  I also have an interest in <strong>UX/UI design</strong>; all user interfaces in the projects below have been designed primarily by me (with some valuable input from teammates), and I like to think critically about how the UX of a project affects the user's ability to achieve what they want.
+                </p>
+                <p>
                   I am always looking for new opportunities to expand my knowledge and skills, and I am excited to see where my career as a developer will take me.
                 </p>
               </div>
@@ -160,8 +168,9 @@ function App() {
                     <Tag text={"JavaScript"} iconSrc={'js.svg'} type={'language'} />
                     <Tag text={"React (JS & Native)"} iconSrc={'react.svg'} type={'language'} />
                     <Tag text={"Java"} iconSrc={'java.svg'} type={'language'} />
-                    <Tag text={"Python"} iconSrc={'python.svg'} type={'language'} />
+                    <Tag text={"JSON"} iconSrc={'json.svg'} type={'language'} />
                     <Tag text={"UX/UI Design"} iconSrc={'ux-ui.svg'} type={'language'} />
+                    <Tag text={"Python"} iconSrc={'python.svg'} type={'language'} />
                     <Tag text={"C/C++"} iconSrc={'c.svg'} type={'language'} />
                     <Tag text={"PHP"} iconSrc={'php.svg'} type={'language'} />
                   </div>
@@ -227,16 +236,17 @@ function App() {
             <h1 className='section-heading' data-section="projects">Projects</h1>
             <div className="project-list-wrapper">
               {projects && projects.map((project) => {
-                return (<>
+                return (
                   <Card
                     key={project.name}
+                    project={project}
                     tags={project.tags}
-                    projectName={project.name}
-                    projectSummary={project.summary}
-                    projectDesc={project.desc}
-                    imgSrc={project.thumbnail}
+                    // projectName={project.name}
+                    // projectSummary={project.summary}
+                    // projectDesc={project.desc}
+                    // imgSrc={project.thumbnail}
                     handleClick={handleChooseProject}
-                  /></>
+                  />
                 )
               })}
             </div>

@@ -11,14 +11,19 @@
     position: relative;
     box-shadow: 0 0 0 1px #29131352 inset;
 
-    &:hover img {
+    &:hover img:not(.skill-tag>img) {
         transform: scale(1.1);
         transition: all 0.6s ease;
     }
 
     & h1 {
-        font-size: 1.4rem;
+        /* font-size: 1.4rem; */
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
         font-weight: 600;
+    }
+
+    p {
+        font-size: clamp(0.9rem, 1.2vw, 1.2rem);
     }
 }
 
@@ -48,4 +53,27 @@
     display: grid;
     gap: 1em;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+
+.project-info {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 1em;
+
+    overflow: hidden;
+
+    & .paragraphs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        overflow: auto;
+
+        & p {
+            margin: 0;
+            font-size: 1.08rem;
+
+
+        }
+    }
+
 }

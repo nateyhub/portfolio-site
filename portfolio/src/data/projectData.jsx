@@ -14,6 +14,12 @@ import mindmateImg2 from '../assets/images/projects/mindmate/chat.png'
 import mindmateImg3 from '../assets/images/projects/mindmate/trello.png'
 import mindmateImg4 from '../assets/images/projects/mindmate/meditation.png'
 
+import classifiImg1 from '../assets/images/projects/classifi/view-projects.png'
+import classifiImg2 from '../assets/images/projects/classifi/project-page.png'
+import classifiImg3 from '../assets/images/projects/classifi/annotation.png'
+import classifiImg4 from '../assets/images/projects/classifi/create-class.png'
+import classifiImg5 from '../assets/images/projects/classifi/exported-json.png'
+
 export const projects = [
 
     {
@@ -45,13 +51,16 @@ export const projects = [
             {
                 text: "Solo project", imgSrc: "solo.svg"
             },
-            { text: "JavaScript", imgSrc: 'js.svg' }, { text: "Firebase", imgSrc: 'firebase.svg' },
+            { text: "JavaScript", imgSrc: 'js.svg' }, { text: "LocalStorage" },
             { text: "WIP", imgSrc: 'wip.svg' },
         ],
-        desc: "The UI design is lightly inspired by the Neo-brutalism trend.",
+        desc: `<p>Classifi is a personal recreation of my university group project, the Data Annotator Tool. Rather than reproducing every feature, I opted to focus on delivering a Minimum Viable Product (MVP) that demonstrates the core annotation workflow.</p><p>The application was built with Vite, JavaScript, HTML, and CSS, with all project data stored in the browser's LocalStorage API. I decided to experiment with the UI design, being lightly inspired by the Neo-brutalism trend. Users can create annotation projects, upload plain text (.txt) files, define custom annotation classes (e.g. PERSON, ORG, LOCATION), and label entities within the text through an intuitive interface.</p><p>Each project holds its set of files and classes. Additionally provided is the ability to track file completion status. To mirror common NER dataset formats, finished annotations can be exported to JSON containing the sample text, classes, and each classification's entity, assigned class, and start & end indicies within the text.</p>`,
         media: [
-            { type: "video", src: "https://www.youtube.com/embed/aOiqcToGf5k?si=AiJSn2D98cYzBoxo" },
-            { type: "image", src: "https://www.youtube.com/embed/aOiqcToGf5k?si=AiJSn2D98cYzBoxo" }
+            { type: "image", src: classifiImg1 },
+            { type: "image", src: classifiImg2 },
+            { type: "image", src: classifiImg3 },
+            { type: "image", src: classifiImg4 },
+            { type: "image", src: classifiImg5 },
         ]
     },
     {

@@ -51,6 +51,7 @@ export const projects = [
             {
                 text: "Solo project", imgSrc: "solo.svg"
             },
+            { text: "Vite", imgSrc: 'vite.svg' },
             { text: "JavaScript", imgSrc: 'js.svg' }, { text: "LocalStorage" },
             { text: "WIP", imgSrc: 'wip.svg' },
         ],

@@ -167,6 +167,7 @@ function App() {
                   <div className="skills-wrapper">
                     <Tag text={"JavaScript"} iconSrc={'js.svg'} type={'language'} />
                     <Tag text={"React (JS & Native)"} iconSrc={'react.svg'} type={'language'} />
+                    <Tag text={"Vite"} iconSrc={'vite.svg'} type={'language'} />
                     <Tag text={"Java"} iconSrc={'java.svg'} type={'language'} />
                     <Tag text={"JSON"} iconSrc={'json.svg'} type={'language'} />
                     <Tag text={"UX/UI Design"} iconSrc={'ux-ui.svg'} type={'language'} />
